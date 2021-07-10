@@ -47,24 +47,6 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(Long id,
-                String name,
-                String surname,
-                String email,
-                String password,
-                String phoneNumber,
-                Date birthDate,
-                Date createDate) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.birthDate = birthDate;
-        this.createDate = createDate;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;

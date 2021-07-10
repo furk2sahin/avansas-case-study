@@ -38,22 +38,6 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(Long id,
-                   String name,
-                   String surname,
-                   String email,
-                   String password,
-                   String phoneNumber,
-                   String birthDate) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.birthDate = birthDate;
-    }
-
     public Long getId() {
         return id;
     }
