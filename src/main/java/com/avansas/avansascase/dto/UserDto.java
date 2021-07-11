@@ -1,39 +1,36 @@
 package com.avansas.avansascase.dto;
 
 import javax.validation.constraints.*;
+import java.util.Date;
 
 public class UserDto {
 
-    @Min(1)
+    @Min(value = 1, message = "Id cannot be less then 1.")
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Name can't be empty.")
     @Size(min = 3, max = 50, message = "Name length should be between 3 and 50.")
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "Surname can't be empty.")
     @Size(min = 3, max = 50, message = "Surname length should be between 3 and 50.")
     private String surname;
 
-    @NotBlank
+    @NotBlank(message = "Email can't be empty.")
     @Email(message = "Wrong email format")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "Password can't be empty.")
     @Size(min=6, max = 50, message = "Password length should be between 6 and 50")
     private String password;
 
-    @NotBlank
-    @Size(min=6, max = 50, message = "Password length should be between 6 and 50")
+    @NotBlank(message = "Phone number can't be empty.")
     @Pattern(regexp = "^(0[25])([0-9]{2})\\s?([0-9]{3})\\s?([0-9]{2})\\s?([0-9]{2})$",
             message = "Wrong phone number format. Examples 0(2 or 5)xx xxx xx xx, 0(2 or 5)xxxxxxxxx")
     private String phoneNumber;
 
-    @NotBlank
-    @Size(min=6, max = 50, message = "Password length should be between 6 and 50")
-    @Pattern(regexp = "^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)\\d{4}$",
-            message = "Birth date format should be dd-mm-yyyy")
-    private String birthDate;
+    @PastOrPresent
+    private Date birthDate;
 
     public UserDto() {
     }
@@ -86,11 +83,11 @@ public class UserDto {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 }

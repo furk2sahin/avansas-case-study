@@ -15,7 +15,7 @@ public class SwaggerConfig {
     public Docket swagger(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.avansas.avansascase.contoller"))
+                .apis(RequestHandlerSelectors.basePackage("com.avansas.avansascase.controller"))
                 .build();
     }
 }
