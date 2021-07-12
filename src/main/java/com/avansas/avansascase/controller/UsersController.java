@@ -4,6 +4,7 @@ import com.avansas.avansascase.dto.UserDto;
 import com.avansas.avansascase.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -27,6 +28,7 @@ public class UsersController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<Object> getAllUsers(){
         List<UserDto> users = userService.getAllUsers();
         if(users.isEmpty()){
@@ -37,6 +39,7 @@ public class UsersController {
     }
 
     @GetMapping("/findUserById/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<Object> findUserById(@PathVariable("id") Long id){
         UserDto user = userService.findUserById(id);
         if(user == null){
@@ -47,11 +50,13 @@ public class UsersController {
     }
 
     @PutMapping("/update")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<UserDto> updateUser(@RequestBody @Valid UserDto userDto){
         return ResponseEntity.ok(userService.updateUser(userDto));
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<String> deleteUserById(@PathVariable("id") Long id){
         userService.deleteUserById(id);
         return ResponseEntity.ok("User deleted successfully with given id: " + id);

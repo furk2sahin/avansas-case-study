@@ -27,6 +27,7 @@ public class Role implements GrantedAuthority {
     private User user;
 
     public Role() {
+        // No args constructor
     }
 
     public Long getId() {

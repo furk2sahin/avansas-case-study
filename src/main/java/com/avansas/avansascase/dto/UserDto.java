@@ -39,6 +39,7 @@ public class UserDto {
     private UserRole role;
 
     public UserDto() {
+        // No args constructor
     }
 
     public Long getId() {

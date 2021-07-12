@@ -52,6 +52,7 @@ public class User implements UserDetails {
     }
 
     public User() {
+        // No args constructor
     }
 
     @Override
