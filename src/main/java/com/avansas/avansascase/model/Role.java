@@ -1,5 +1,6 @@
 package com.avansas.avansascase.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -22,15 +23,10 @@ public class Role implements GrantedAuthority {
 
     @ManyToOne
     @JoinColumn
+    @JsonIgnoreProperties("authorities")
     private User user;
 
     public Role() {
-    }
-
-    public Role(Long id, String authority, User user) {
-        this.id = id;
-        this.authority = authority;
-        this.user = user;
     }
 
     public Long getId() {

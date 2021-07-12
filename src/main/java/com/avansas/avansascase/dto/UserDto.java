@@ -1,5 +1,7 @@
 package com.avansas.avansascase.dto;
 
+import com.avansas.avansascase.security.UserRole;
+
 import javax.validation.constraints.*;
 import java.util.Date;
 
@@ -31,6 +33,10 @@ public class UserDto {
 
     @PastOrPresent
     private Date birthDate;
+
+    private Date createDate;
+
+    private UserRole role;
 
     public UserDto() {
     }
@@ -89,5 +95,21 @@ public class UserDto {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 }

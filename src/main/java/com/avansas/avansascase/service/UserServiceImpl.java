@@ -2,8 +2,10 @@ package com.avansas.avansascase.service;
 
 import com.avansas.avansascase.dto.UserDto;
 import com.avansas.avansascase.mapper.UserMapper;
+import com.avansas.avansascase.model.Role;
 import com.avansas.avansascase.model.User;
 import com.avansas.avansascase.repository.UserRepository;
+import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -36,6 +38,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDto addNewUser(UserDto userDto) {
         User user = userMapper.userDtoToUser(userDto);
+        Role role = new Role();
+        role.setUser(user);
+        role.setAuthority("ROLE_" + userDto.getRole().toString());
+        user.setAuthorities(Sets.newHashSet(role));
         userRepository.save(user);
         return userMapper.userToUserDto(user);
     }

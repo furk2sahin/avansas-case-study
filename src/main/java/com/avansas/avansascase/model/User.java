@@ -1,5 +1,6 @@
 package com.avansas.avansascase.model;
 
+import com.avansas.avansascase.security.UserRole;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,13 +25,13 @@ public class User implements UserDetails {
     @Column(name = "surname", nullable = false, length = 50)
     private String surname;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "password", nullable = false, length = 50)
     private String password;
 
-    @Column(name = "phone_number", nullable = false, length = 11)
+    @Column(name = "phone_number", nullable = false, length = 11, unique = true)
     private String phoneNumber;
 
     @Column(name = "birth_date", nullable = false)
@@ -41,8 +42,14 @@ public class User implements UserDetails {
     @Column(name = "create_date", updatable = false)
     private Date createDate;
 
+    private UserRole role;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private final Set<Role> authorities = new HashSet<>();
+    private Set<Role> authorities = new HashSet<>();
+
+    public void setAuthorities(Set<Role> authorities) {
+        this.authorities = authorities;
+    }
 
     public User() {
     }
@@ -140,5 +147,13 @@ public class User implements UserDetails {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 }
