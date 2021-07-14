@@ -3,6 +3,7 @@ $(document).ready(function() {
     let success = $('#success');
     errors.hide();
     success.hide();
+
     $("#add_user").click(function() {
         errors.hide();
         errors.html("");

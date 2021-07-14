@@ -23,8 +23,10 @@
             <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
         </p>
         <div class="alert alert-danger mt-2" role="alert" id="dangerAlert">All fields are required.</div>
-        <div class="alert alert-success mt-2" role="alert" id="successAlert">Successfull. You will be redirect in 2 seconds.</div>
-        <button id="submit" class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        <button id="submit" class="btn btn-lg btn-primary btn-block" type="submit">
+            <span class="spinner-border spinner-border-sm" role="status" id="spinner" aria-hidden="true"></span>
+            <span id="login_text">Login</span>
+        </button>
         <div class="alert alert-warning mt-3" role="alert">
             You don't have an account?
             <a href="/register">Register</a>

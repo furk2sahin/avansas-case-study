@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -46,15 +47,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto addNewUser(UserDto userDto) {
-        if(userRepository.existsByEmail(userDto.getEmail())){
-            throw new EmailExistException();
-        }
-        if(userRepository.existsByPhoneNumber(userDto.getPhoneNumber())){
-            throw new PhoneNumberExistException();
-        }
-        if(userDto.getBirthDate().before(new GregorianCalendar(1900, Calendar.FEBRUARY, 1).getTime())){
-            throw new InvalidBirthDateException();
-        }
+        checkIfEmailExists(userDto.getEmail());
+        checkIfPhoneExists(userDto.getPhoneNumber());
+        checkIfBirthDateValid(userDto.getBirthDate());
         User user = userMapper.userDtoToUser(userDto);
         Role role = new Role();
         role.setUser(user);
@@ -83,6 +78,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateUser(UserDto userDto) {
+        UserDto userToUpdate = findUserById(userDto.getId());
+        if(!userToUpdate.getEmail().equals(userDto.getEmail())){
+            checkIfEmailExists(userDto.getEmail());
+        }
+        if(!userToUpdate.getPhoneNumber().equals(userDto.getPhoneNumber())){
+            checkIfPhoneExists(userDto.getPhoneNumber());
+        }
+        checkIfBirthDateValid(userDto.getBirthDate());
         User user = userMapper.userDtoToUser(userDto);
         return userMapper.userToUserDto(userRepository.save(user));
     }
@@ -90,5 +93,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    private void checkIfEmailExists(String email){
+        if(userRepository.existsByEmail(email)){
+            throw new EmailExistException();
+        }
+    }
+
+    private void checkIfPhoneExists(String phoneNumber){
+        if(userRepository.existsByPhoneNumber(phoneNumber)){
+            throw new PhoneNumberExistException();
+        }
+    }
+
+    private void checkIfBirthDateValid(Date birthDate){
+        if(birthDate.before(new GregorianCalendar(1900, Calendar.FEBRUARY, 1).getTime())){
+            throw new InvalidBirthDateException();
+        }
     }
 }

@@ -37,6 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and().formLogin().loginPage(loginPage)
+                .failureHandler((request, response, exception) -> {
+                    response.setStatus(404);
+                })
                 .defaultSuccessUrl("/listUsers")
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

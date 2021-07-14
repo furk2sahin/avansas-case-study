@@ -23,7 +23,7 @@ public class UserDto {
     private String email;
 
     @NotBlank(message = "Password can't be empty.")
-    @Size(min=6, max = 50, message = "Password length should be between 6 and 50")
+    @Size(min = 6, message = "Surname length cannot be less then 6.")
     private String password;
 
     @NotBlank(message = "Phone number can't be empty.")

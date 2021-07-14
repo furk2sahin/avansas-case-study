@@ -1,6 +1,9 @@
 $(document).ready(function(){
     let dangerAlert = $('#dangerAlert');
     let successAlert = $('#successAlert');
+    let spinner = $('#spinner');
+    let loginText = $('#login_text');
+    spinner.hide();
     dangerAlert.hide();
     successAlert.hide();
     $('#submit').click(function (event){
@@ -12,6 +15,8 @@ $(document).ready(function(){
             dangerAlert.show();
         } else {
             dangerAlert.hide();
+            spinner.show();
+            loginText.hide();
             $.ajax({
                 url:"http://localhost:8080/login",
                 type:"POST",
@@ -19,14 +24,16 @@ $(document).ready(function(){
                 username:$("#username").val(),
                 password:$("#password").val()
                 },
-                success : function(data, textStatus, xhr){
-                    if(xhr.responseText === ""){
-                        successAlert.show();
-                        setTimeout(function(){window.location.replace("/listUsers"); }, 2000);
-                    } else {
-                        dangerAlert.html("Username or password incorrect.");
-                        dangerAlert.show();
-                    }
+                success : function(){
+                    spinner.hide();
+                    loginText.show();
+                    window.location.replace("/listUsers");
+                },
+                error : function() {
+                    dangerAlert.html("Username or password incorrect.");
+                    dangerAlert.show();
+                    spinner.hide();
+                    loginText.show();
                 }
             });
         }
