@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
         if(user == null){
-            throw new UsernameNotFoundException("Username not exists with email: " + email);
+            throw new UsernameNotFoundException("Email not found.");
         }
         return user;
     }

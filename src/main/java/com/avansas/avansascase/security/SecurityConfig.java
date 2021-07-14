@@ -29,15 +29,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        String loginPage = "/login";
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/v1/users/addUser").permitAll()
+                .antMatchers(loginPage, "/webjars/**", "/api/v1/users/addUser", "favicon.ico").permitAll()
                 .anyRequest()
                 .authenticated()
+                .and().formLogin().loginPage(loginPage)
+                .defaultSuccessUrl("/listUsers")
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .and().formLogin();
+                .logoutSuccessUrl(loginPage);
     }
 
     @Bean

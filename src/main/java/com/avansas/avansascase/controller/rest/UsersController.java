@@ -1,4 +1,4 @@
-package com.avansas.avansascase.controller;
+package com.avansas.avansascase.controller.rest;
 
 import com.avansas.avansascase.dto.UserDto;
 import com.avansas.avansascase.service.UserService;
