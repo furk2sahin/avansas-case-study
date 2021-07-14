@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Login</title>
+    <title>Login Page</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>
     <style><%@include file="../../resources/css/login.css"%></style>
 </head>
 <body>
-<div class="d-flex justify-content-center text-center">
-    <form class="form-signin" id="signin" action="/login" method="post">
-        <h2 class="form-signin-heading">Login</h2>
+    <div class="d-flex justify-content-center text-center">
+    <form>
+        <h2 class="display-3 mb-3">Login</h2>
         <p>
             <label for="username" class="sr-only">Email</label>
             <input type="text" id="username" name="username" class="form-control" placeholder="Email" required="" autofocus="">
@@ -31,8 +31,8 @@
         </div>
     </form>
     </div>
-<script type="text/javascript" src="${pageContext.request.contextPath}/webjars/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script type="text/javascript"><%@include file="../../resources/js/login.js"%></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript"><%@include file="../../resources/js/login.js"%></script>
 </body>
 </html>

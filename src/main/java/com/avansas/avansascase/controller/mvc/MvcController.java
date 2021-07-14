@@ -14,6 +14,11 @@ public class MvcController {
         return "login";
     }
 
+    @GetMapping("register")
+    public String getRegister(){
+        return "signup";
+    }
+
     @GetMapping("listUsers")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     public String listUsers(){

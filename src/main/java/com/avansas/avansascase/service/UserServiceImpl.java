@@ -1,6 +1,9 @@
 package com.avansas.avansascase.service;
 
 import com.avansas.avansascase.dto.UserDto;
+import com.avansas.avansascase.exception.EmailExistException;
+import com.avansas.avansascase.exception.InvalidBirthDateException;
+import com.avansas.avansascase.exception.PhoneNumberExistException;
 import com.avansas.avansascase.mapper.UserMapper;
 import com.avansas.avansascase.model.Role;
 import com.avansas.avansascase.model.User;
@@ -12,6 +15,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @Service
@@ -41,6 +46,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto addNewUser(UserDto userDto) {
+        if(userRepository.existsByEmail(userDto.getEmail())){
+            throw new EmailExistException();
+        }
+        if(userRepository.existsByPhoneNumber(userDto.getPhoneNumber())){
+            throw new PhoneNumberExistException();
+        }
+        if(userDto.getBirthDate().before(new GregorianCalendar(1900, Calendar.FEBRUARY, 1).getTime())){
+            throw new InvalidBirthDateException();
+        }
         User user = userMapper.userDtoToUser(userDto);
         Role role = new Role();
         role.setUser(user);

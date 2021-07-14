@@ -31,7 +31,7 @@ public class UserDto {
             message = "Wrong phone number format. Examples 0(2 or 5)xx xxx xx xx, 0(2 or 5)xxxxxxxxx")
     private String phoneNumber;
 
-    @PastOrPresent
+    @PastOrPresent(message = "Birth date should be past or present.")
     private Date birthDate;
 
     private Date createDate;
